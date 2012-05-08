@@ -17,7 +17,7 @@
         <a href="CerrarSesion.jsp"> cerrar sesión</a>
         <% Jugador j = (Jugador) session.getAttribute("Jugador");%>
         <h3>Bienvenido <%= j.getUsuario()%> </h3>
-        
+        Hola
         <form action="PaginaJuego.jsp" method="post">
             <% String conectados[] = Jugador.getStringConnected();
                 for (int i = 0; i < conectados.length; i++) {%>
