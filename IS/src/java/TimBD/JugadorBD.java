@@ -26,7 +26,7 @@ public class JugadorBD {
     private static String baseDatos = "jbcd:postgresql://localhost:5432/TimbiricheBD";
     private static String user = "postgres";
     private static String password = "leonardo";
-    private static Connection conexion;
+    //private static Connection conexion;
     protected String usuario;
     protected String correo;
     protected String nombre;
@@ -61,11 +61,12 @@ public class JugadorBD {
      */
     public Jugador autenticarse(String pwd) throws ClassNotFoundException, SQLException {
         Jugador res = null;
-
+        Connection conexion;
         Class.forName(driver);
         conexion = DriverManager.getConnection(baseDatos, user, password);
 
-        Statement comando = conexion.createStatement();
+        Statement comando = conexion.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                                           java.sql.ResultSet.CONCUR_UPDATABLE);
         String sql = "SELECT nombre, apellido,correo,verificacion FROM jugador WHERE usuario = '" + usuario + "' AND contrasena = '" + pwd + "'";
         //+ "AND contrasena = "+pwd+";";
         ResultSet resultado = comando.executeQuery(sql);
@@ -86,6 +87,7 @@ public class JugadorBD {
 
     public boolean registrarse(String nom, String ap, String mail, String user) {
         boolean res = false;
+        Connection conexion = null;
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -93,7 +95,8 @@ public class JugadorBD {
         }
         try {
             conexion = DriverManager.getConnection(baseDatos, JugadorBD.user, password);
-            Statement comando = conexion.createStatement();
+            Statement comando = conexion.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                                           java.sql.ResultSet.CONCUR_UPDATABLE);
             String sql = "SELECT nombre, apellido,correo FROM jugador WHERE usuario = '" + user + "';";
             ResultSet resultado = comando.executeQuery(sql);
             if (resultado.next()) {
@@ -118,7 +121,8 @@ public class JugadorBD {
             sql += apellido + "','" + correo + "','" + pwd + "','" + usuario + "');";
             try {
                 try {
-                    Statement comando = conexion.createStatement();
+                    Statement comando = conexion.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                                           java.sql.ResultSet.CONCUR_UPDATABLE);
                     ResultSet resultado = comando.executeQuery(sql);
                     comando.executeQuery(sql);
                     resultado.close();
