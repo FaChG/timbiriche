@@ -19,6 +19,10 @@ import java.util.logging.Logger;
 public class Jugador extends JugadorBD{
     
     private static LinkedList<Jugador> conectados = new LinkedList();
+    
+    private static int puerto;
+    private static String servidor;
+    
     private char[] iniciales;
     private boolean ocupado;
     private int marcador; 
