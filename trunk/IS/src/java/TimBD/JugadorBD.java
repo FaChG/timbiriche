@@ -120,19 +120,13 @@ public class JugadorBD {
             String sql = "INSERT INTO jugador (nombre,apellido,correo,contrasena,usuario)VALUES ('" + nombre + "','";
             sql += apellido + "','" + correo + "','" + pwd + "','" + usuario + "');";
             try {
-                try {
+                
                     Statement comando = conexion.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                                            java.sql.ResultSet.CONCUR_UPDATABLE);
-                    ResultSet resultado = comando.executeQuery(sql);
-                    comando.executeQuery(sql);
-                    resultado.close();
+                    comando.executeUpdate(sql);
                     comando.close();
                     conexion.close();
-                    res = true;
-                } catch (PSQLException e) {
-                    conexion.close();
-                    return true;
-                } 
+                    res = true;                 
             } catch (SQLException e) {
                 return false;
             }

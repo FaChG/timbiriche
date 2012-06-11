@@ -20,12 +20,16 @@ public class Jugador extends JugadorBD{
     
     private static LinkedList<Jugador> conectados = new LinkedList();
     
-    private static int puerto;
+    private static int puerto = 20002;
     private static String servidor;
     
     private char[] iniciales;
     private boolean ocupado;
     private int marcador; 
+    
+    public Jugador(String user){
+        
+    }
    
     /**
      * Construye un Jugador y lo agrega a la lista de conectados y listos para jugar
